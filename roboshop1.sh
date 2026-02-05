@@ -28,5 +28,8 @@ instance_id=$( aws ec2 run-instances \
             --query 'Reservations[].Instances[].PrivateIpAddress' \
             --output text
         )
+    fi
+
+    echo "IP Address: $IP"
 done
 
