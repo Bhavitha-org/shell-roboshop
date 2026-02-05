@@ -7,10 +7,9 @@ DOMAIN_NAME="exploreops.online"
 
 for instance in $@
 do
-
-INSTANCE_ID=$( aws ec2 run-instances \
+    INSTANCE_ID=$( aws ec2 run-instances \
     --image-id $AMI_ID \
-    --instance-type t3.micro \
+    --instance-type "t3.micro" \
     --security-group-ids $SG_ID \
     --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=$instance}]" \
     --query 'Instances[0].InstanceId' \
@@ -23,22 +22,21 @@ INSTANCE_ID=$( aws ec2 run-instances \
             --query 'Reservations[].Instances[].PublicIpAddress' \
             --output text
         )
-        RECORD_NAME="$DOMAIN_NAME"
-    else 
+        RECORD_NAME="$DOMAIN_NAME" 
+    else
         IP=$(
             aws ec2 describe-instances \
             --instance-ids $INSTANCE_ID \
             --query 'Reservations[].Instances[].PrivateIpAddress' \
             --output text
         )
-        RECORD_NAME="$instance.$DOMAIN_NAME"
+        RECORD_NAME="$instance.$DOMAIN_NAME" # mongodb.daws88s.online
     fi
 
     echo "IP Address: $IP"
 
-
     aws route53 change-resource-record-sets \
-    --hosted-zone-id $ZONE_ID 
+    --hosted-zone-id $ZONE_ID \
     --change-batch '
     {
         "Comment": "Updating record",
@@ -55,12 +53,11 @@ INSTANCE_ID=$( aws ec2 run-instances \
                 }
                 ]
             }
-        }
-   ]
-}
+            }
+        ]
+    }
+    '
 
-'
-echo "record updated for $instance"
+    echo "record updated for $instance"
 
 done
-
