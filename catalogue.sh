@@ -18,10 +18,10 @@ mkdir -p $LOGS_FOLDER
 
 VALIDATE() {
 if [ $1 -ne 0 ]; then
-    echo "$2 is...FAILURE" | tee -a $LOGS_FILE  
+    echo "$2 ...FAILURE" | tee -a $LOGS_FILE  
     exit 1
 else 
-    echo "$2 is...SUCCESS" | tee -a $LOGS_FILE      
+    echo "$2 ...SUCCESS" | tee -a $LOGS_FILE      
 fi
 }
 
@@ -40,7 +40,7 @@ if [ $? -ne 0 ]; then
     VALIDATE $? "Creating system user"
 else
     echo -e "roboshop user already exist...$Y SKIPPING $N"
-
+fi
 mkdir -p /app 
 VALIDATE $? "Creating app directory"
 
