@@ -9,6 +9,8 @@ G="\e[32m"
 Y="\e[33m"
 N="\e[0m"
 
+SCRIPT_DIR=$PWD
+
 if [ $USERID -ne 0 ]; then
     echo -e "$R please run this script with root user access $N" | tee -a $LOGS_FILE
     exit 1
@@ -59,7 +61,7 @@ VALIDATE $? "Unzipping catalogue code"
 npm install &>>$LOGS_FILE
 VALIDATE $? "Installing dependencies"
 
-cp catalogue.service /etc/systemd/system/catalogue.service
+cp $SCRIPT_DIR/catalogue.service /etc/systemd/system/catalogue.service
 VALIDATE $? "Created systemctl service"
 
 systemctl daemon-reload
