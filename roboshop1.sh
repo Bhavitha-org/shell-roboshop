@@ -1,8 +1,8 @@
 #!/bin/bash
 
-SG_ID="sg-0fc8a83e866144bd7"
+SG_ID="sg-017b4d9d9d993f2b1"
 AMI_ID="ami-0220d79f3f480ecf5"
-ZONE_ID="Z04814222XKMSD20FJS7N"
+ZONE_ID="Z047633137OO0E33GOO9K"
 DOMAIN_NAME="exploreops.online"
 
 for instance in $@
@@ -30,7 +30,7 @@ do
             --query 'Reservations[].Instances[].PrivateIpAddress' \
             --output text
         )
-        RECORD_NAME="$instance.$DOMAIN_NAME" # mongodb.daws88s.online
+        RECORD_NAME="$instance.$DOMAIN_NAME" # mongodb.exploreops.online
     fi
 
     echo "IP Address: $IP"
