@@ -28,3 +28,19 @@ else
 fi
 }
 
+cp $SCRIPT_DIR/rabbitmq.repo /etc/yum.repos.d/rabbitmq.repo
+VALIDATE $? "Added rabbitmq repo"
+
+dnf install rabbitmq-server -y
+VALIDATE $? "Installing RabbitMQ server"
+
+systemctl enable rabbitmq-server
+systemctl start rabbitmq-server
+VALIDATE $? "Enabled and Started rabbitmq"
+
+rabbitmqctl add_user roboshop roboshop123
+rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*"
+VALIDATE $? "Created users and given permissions"
+
+
+
