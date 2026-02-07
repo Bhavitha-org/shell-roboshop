@@ -75,7 +75,7 @@ if [ $? -ne 0 ]; then
     mysql -h $MYSQL_HOST -uroot -pRoboShop@1 < /app/db/master-data.sql &>>$LOGS_FILE
     VALIDATE $? "Loaded data into MySql"
 else
-    echo "Data already loaded...$Y SKIPPING $N"
+    echo -e "Data already loaded...$Y SKIPPING $N"
 fi
 systemctl enable shipping 
 systemctl start shipping
