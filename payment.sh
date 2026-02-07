@@ -50,7 +50,7 @@ VALIDATE $? "Moving to app directory"
 rm -rf /app/*
 VALIDATE $? "Removing existing code"
 
-unzip /tmp/user.zip &>>$LOGS_FILE
+unzip /tmp/payment.zip &>>$LOGS_FILE
 VALIDATE $? "Unzipping payment code"
 
 cd /app 
